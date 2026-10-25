@@ -75,6 +75,63 @@ def get_price():
         return None, None
 
 
+def get_history():
+    """Pichle 1 mahine ke daily gold futures prices."""
+    try:
+        u = "https://query1.finance.yahoo.com/v8/finance/chart/GC=F?interval=1d&range=1mo"
+        res = requests.get(u, headers=UA, timeout=20).json()["chart"]["result"][0]
+        closes = res["indicators"]["quote"][0]["close"]
+        return [(t, c) for t, c in zip(res["timestamp"], closes) if c is not None]
+    except Exception as e:
+        print("history error:", e)
+        return []
+
+
+def make_chart(pts):
+    """Bina kisi library ke SVG line chart banata hai."""
+    if len(pts) < 2:
+        return ""
+    W, H, PL, PR, PT, PB = 600, 230, 12, 12, 22, 28
+    vals = [c for _, c in pts]
+    lo, hi = min(vals), max(vals)
+    pad = (hi - lo) * 0.12 or 1
+    lo, hi = lo - pad, hi + pad
+    n = len(pts)
+
+    def x(i):
+        return PL + i * (W - PL - PR) / (n - 1)
+
+    def y(v):
+        return PT + (hi - v) / (hi - lo) * (H - PT - PB)
+
+    line = " ".join("%.1f,%.1f" % (x(i), y(c)) for i, (_, c) in enumerate(pts))
+    area = "M%.1f,%d L%s L%.1f,%d Z" % (x(0), H - PB, line.replace(" ", " L"), x(n - 1), H - PB)
+    imax, imin = vals.index(max(vals)), vals.index(min(vals))
+    d0 = datetime.fromtimestamp(pts[0][0], timezone.utc).strftime("%d %b")
+    d1 = datetime.fromtimestamp(pts[-1][0], timezone.utc).strftime("%d %b")
+    col = "var(--up)" if vals[-1] >= vals[0] else "var(--dn)"
+    chg = (vals[-1] - vals[0]) / vals[0] * 100
+    return (
+        '<div class="mut" style="margin-top:14px;font-size:13px">Pichla 1 mahina '
+        '(<span style="color:%s;font-weight:600">%s%.1f%%</span>)</div>'
+        '<svg viewBox="0 0 %d %d" style="width:100%%;height:auto;display:block" role="img" aria-label="Gold chart">'
+        '<path d="%s" style="fill:%s;opacity:.12"/>'
+        '<polyline points="%s" style="fill:none;stroke:%s;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round"/>'
+        '<circle cx="%.1f" cy="%.1f" r="4.5" style="fill:%s"/>'
+        '<text x="%.1f" y="%.1f" text-anchor="middle" style="fill:var(--mut);font-size:14px">$%s</text>'
+        '<text x="%.1f" y="%.1f" text-anchor="middle" style="fill:var(--mut);font-size:14px">$%s</text>'
+        '<text x="%d" y="%d" style="fill:var(--mut);font-size:14px">%s</text>'
+        '<text x="%d" y="%d" text-anchor="end" style="fill:var(--mut);font-size:14px">%s</text>'
+        '</svg>'
+    ) % (
+        col, "+" if chg >= 0 else "", chg, W, H, area, col, line, col,
+        x(n - 1), y(vals[-1]), col,
+        min(max(x(imax), 40), W - 40), y(max(vals)) - 8, format(max(vals), ",.0f"),
+        min(max(x(imin), 40), W - 40), y(min(vals)) + 18, format(min(vals), ",.0f"),
+        PL, H - 6, d0, W - PR, H - 6, d1,
+    )
+
+
 def main():
     cutoff = datetime.now(timezone.utc) - timedelta(hours=HOURS)
     seen, news = set(), []
@@ -111,6 +168,8 @@ def main():
                       % (format(price, ",.2f"), c, "▲ " if pct >= 0 else "▼ ", abs(pct)))
     else:
         price_html = '<div class="n">--</div><div class="mut">Price abhi available nahi</div>'
+
+    price_html += make_chart(get_history())
 
     with open(os.path.join(os.path.dirname(__file__), "template.html"), encoding="utf-8") as f:
         page = f.read()
