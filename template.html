@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="refresh" content="900">
+<title>Gold News Radar</title>
+<style>
+:root{--bg:#faf8f3;--card:#fff;--tx:#1d1b16;--mut:#6b6659;--bd:#e6e1d3;--hi:#c62828;--md:#e08a00;--lo:#8a8573;--gold:#b8860b;--dn:#c62828;--up:#2e7d32}
+@media (prefers-color-scheme:dark){:root{--bg:#14120d;--card:#1f1c14;--tx:#f1ede1;--mut:#a39d8a;--bd:#34301f;--hi:#ef5350;--md:#ffb74d;--lo:#a39d8a;--gold:#e5b94a;--dn:#ef5350;--up:#66bb6a}}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:680px;margin:0 auto;padding:16px}
+h1{font-size:22px;margin:4px 0 2px}
+.sub{color:var(--mut);font-size:13px;margin-bottom:14px}
+.price{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:14px}
+.n{font-size:34px;font-weight:700;color:var(--gold)}
+.up{color:var(--up)}.dn{color:var(--dn)}.mut{color:var(--mut)}
+.card{display:block;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:10px;text-decoration:none;color:inherit}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;color:#fff;margin-bottom:6px}
+.HIGH{background:var(--hi)}.MED{background:var(--md)}.LOW{background:var(--lo)}
+h3{font-size:15px;margin:0 0 6px;font-weight:600}
+.meta{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--mut)}
+.imp{font-weight:600}
+.warn{font-size:12px;color:var(--mut);border-top:1px solid var(--bd);padding-top:10px;margin-top:14px}
+</style>
+</head>
+<body>
+<div class="w">
+  <h1>🪙 Gold News Radar</h1>
+  <div class="sub">Aakhri update: <span id="upd"></span> · har ghante khud update hota hai</div>
+  <div class="price">__PRICE__</div>
+  __CARDS__
+  <div class="warn">Ye financial salah nahi hai. HIGH/MED/LOW aur bullish/bearish tag keywords se khud-ba-khud lagte hain, ghalat bhi ho sakte hain. Trade se pehle khabar khud parho.</div>
+</div>
+<script>
+function fmt(s){return new Date(s).toLocaleString([], {day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}
+document.getElementById("upd").textContent = fmt("__UPDATED__");
+document.querySelectorAll(".t").forEach(function(e){e.textContent = fmt(e.dataset.ts)});
+</script>
+</body>
+</html>
