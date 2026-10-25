@@ -27,10 +27,10 @@ h3{font-size:15px;margin:0 0 6px;font-weight:600}
 <body>
 <div class="w">
   <h1>🪙 Gold News Radar</h1>
-  <div class="sub">Aakhri update: <span id="upd"></span> · har ghante khud update hota hai</div>
+  <div class="sub">Last updated: <span id="upd"></span> · auto-refreshes every hour</div>
   <div class="price">__PRICE__</div>
   __CARDS__
-  <div class="warn">Ye financial salah nahi hai. HIGH/MED/LOW aur bullish/bearish tag keywords se khud-ba-khud lagte hain, ghalat bhi ho sakte hain. Trade se pehle khabar khud parho.</div>
+  <div class="warn">Not financial advice. HIGH/MED/LOW and bullish/bearish tags are assigned automatically from keywords and can be wrong. Read the full story before you trade.</div>
 </div>
 <script>
 function fmt(s){return new Date(s).toLocaleString([], {day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}
@@ -38,4 +38,4 @@ document.getElementById("upd").textContent = fmt("__UPDATED__");
 document.querySelectorAll(".t").forEach(function(e){e.textContent = fmt(e.dataset.ts)});
 </script>
 </body>
-</html>  
+</html>
