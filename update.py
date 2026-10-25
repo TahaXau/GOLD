@@ -1,4 +1,4 @@
-"""Gold News Radar: har ghante news utha ke docs/index.html banata hai."""
+"""Gold News Radar: fetches news every hour and builds docs/index.html."""
 import html
 import os
 import requests
@@ -17,7 +17,7 @@ QUERIES = [
     "central bank gold buying", "war sanctions oil gold",
 ]
 
-# jitna zyada weight, utna high impact
+# higher weight = higher impact
 IMPACT = {
     "fed": 2, "federal reserve": 2, "powell": 2, "warsh": 2, "rate cut": 3,
     "rate hike": 3, "interest rate": 2, "cpi": 3, "pce": 3, "inflation": 2,
@@ -58,10 +58,10 @@ def direction(t):
     up = sum(k in t for k in BULL)
     dn = sum(k in t for k in BEAR)
     if up > dn:
-        return "up", "Gold ke liye bullish (upar)"
+        return "up", "Bullish for gold"
     if dn > up:
-        return "dn", "Gold ke liye bearish (neeche)"
-    return "", "Asar saaf nahi"
+        return "dn", "Bearish for gold"
+    return "", "Impact unclear"
 
 
 def get_price():
@@ -76,60 +76,72 @@ def get_price():
 
 
 def get_history():
-    """Pichle 1 mahine ke daily gold futures prices."""
+    """Daily OHLC candles of gold futures for the last 3 months."""
     try:
-        u = "https://query1.finance.yahoo.com/v8/finance/chart/GC=F?interval=1d&range=1mo"
+        u = "https://query1.finance.yahoo.com/v8/finance/chart/GC=F?interval=1d&range=3mo"
         res = requests.get(u, headers=UA, timeout=20).json()["chart"]["result"][0]
-        closes = res["indicators"]["quote"][0]["close"]
-        return [(t, c) for t, c in zip(res["timestamp"], closes) if c is not None]
+        q = res["indicators"]["quote"][0]
+        out = []
+        for t, o, h, l, c in zip(res["timestamp"], q["open"], q["high"], q["low"], q["close"]):
+            if None not in (o, h, l, c):
+                out.append((t, o, h, l, c))
+        return out
     except Exception as e:
         print("history error:", e)
         return []
 
 
-def make_chart(pts):
-    """Bina kisi library ke SVG line chart banata hai."""
-    if len(pts) < 2:
+def make_chart(candles):
+    """Candlestick chart as plain SVG (no libraries needed)."""
+    if len(candles) < 2:
         return ""
-    W, H, PL, PR, PT, PB = 600, 230, 12, 12, 22, 28
-    vals = [c for _, c in pts]
-    lo, hi = min(vals), max(vals)
-    pad = (hi - lo) * 0.12 or 1
+    W, H, PL, PR, PT, PB = 600, 280, 8, 50, 14, 26
+    n = len(candles)
+    lo = min(c[3] for c in candles)
+    hi = max(c[2] for c in candles)
+    pad = (hi - lo) * 0.06 or 1
     lo, hi = lo - pad, hi + pad
-    n = len(pts)
+    step = (W - PL - PR) / n
+    bw = max(step * 0.62, 1.5)
 
     def x(i):
-        return PL + i * (W - PL - PR) / (n - 1)
+        return PL + (i + 0.5) * step
 
     def y(v):
         return PT + (hi - v) / (hi - lo) * (H - PT - PB)
 
-    line = " ".join("%.1f,%.1f" % (x(i), y(c)) for i, (_, c) in enumerate(pts))
-    area = "M%.1f,%d L%s L%.1f,%d Z" % (x(0), H - PB, line.replace(" ", " L"), x(n - 1), H - PB)
-    imax, imin = vals.index(max(vals)), vals.index(min(vals))
-    d0 = datetime.fromtimestamp(pts[0][0], timezone.utc).strftime("%d %b")
-    d1 = datetime.fromtimestamp(pts[-1][0], timezone.utc).strftime("%d %b")
-    col = "var(--up)" if vals[-1] >= vals[0] else "var(--dn)"
-    chg = (vals[-1] - vals[0]) / vals[0] * 100
+    parts = []
+    # horizontal grid lines with price labels
+    for k in range(5):
+        v = lo + (hi - lo) * k / 4
+        yy = y(v)
+        parts.append('<line x1="%d" y1="%.1f" x2="%d" y2="%.1f" style="stroke:var(--bd);stroke-width:1"/>'
+                     % (PL, yy, W - PR, yy))
+        parts.append('<text x="%d" y="%.1f" style="fill:var(--mut);font-size:13px">%s</text>'
+                     % (W - PR + 5, yy + 4, format(v, ",.0f")))
+    # candles
+    for i, (_, o, h, l, c) in enumerate(candles):
+        col = "var(--up)" if c >= o else "var(--dn)"
+        top, bot = y(max(o, c)), y(min(o, c))
+        parts.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" style="stroke:%s;stroke-width:1.2"/>'
+                     % (x(i), y(h), x(i), y(l), col))
+        parts.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" style="fill:%s"/>'
+                     % (x(i) - bw / 2, top, bw, max(bot - top, 1), col))
+    # date labels
+    d0 = datetime.fromtimestamp(candles[0][0], timezone.utc).strftime("%d %b")
+    d1 = datetime.fromtimestamp(candles[-1][0], timezone.utc).strftime("%d %b")
+    parts.append('<text x="%d" y="%d" style="fill:var(--mut);font-size:13px">%s</text>' % (PL, H - 6, d0))
+    parts.append('<text x="%d" y="%d" text-anchor="end" style="fill:var(--mut);font-size:13px">%s</text>'
+                 % (W - PR, H - 6, d1))
+
+    first, last = candles[0][1], candles[-1][4]
+    chg = (last - first) / first * 100
     return (
-        '<div class="mut" style="margin-top:14px;font-size:13px">Pichla 1 mahina '
-        '(<span style="color:%s;font-weight:600">%s%.1f%%</span>)</div>'
-        '<svg viewBox="0 0 %d %d" style="width:100%%;height:auto;display:block" role="img" aria-label="Gold chart">'
-        '<path d="%s" style="fill:%s;opacity:.12"/>'
-        '<polyline points="%s" style="fill:none;stroke:%s;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round"/>'
-        '<circle cx="%.1f" cy="%.1f" r="4.5" style="fill:%s"/>'
-        '<text x="%.1f" y="%.1f" text-anchor="middle" style="fill:var(--mut);font-size:14px">$%s</text>'
-        '<text x="%.1f" y="%.1f" text-anchor="middle" style="fill:var(--mut);font-size:14px">$%s</text>'
-        '<text x="%d" y="%d" style="fill:var(--mut);font-size:14px">%s</text>'
-        '<text x="%d" y="%d" text-anchor="end" style="fill:var(--mut);font-size:14px">%s</text>'
-        '</svg>'
-    ) % (
-        col, "+" if chg >= 0 else "", chg, W, H, area, col, line, col,
-        x(n - 1), y(vals[-1]), col,
-        min(max(x(imax), 40), W - 40), y(max(vals)) - 8, format(max(vals), ",.0f"),
-        min(max(x(imin), 40), W - 40), y(min(vals)) + 18, format(min(vals), ",.0f"),
-        PL, H - 6, d0, W - PR, H - 6, d1,
-    )
+        '<div class="mut" style="margin-top:14px;font-size:13px">Last 3 months, daily candles '
+        '(<span class="%s" style="font-weight:600">%s%.1f%%</span>)</div>'
+        '<svg viewBox="0 0 %d %d" style="width:100%%;height:auto;display:block" role="img" '
+        'aria-label="Gold candlestick chart">%s</svg>'
+    ) % ("up" if chg >= 0 else "dn", "+" if chg >= 0 else "", chg, W, H, "".join(parts))
 
 
 def main():
@@ -159,7 +171,7 @@ def main():
             % (html.escape(link), tag, tag, html.escape(title),
                when.isoformat(), cls, label))
     if not cards:
-        cards.append('<div class="card">Abhi koi news nahi mili.</div>')
+        cards.append('<div class="card">No news found right now.</div>')
 
     price, pct = get_price()
     if price:
@@ -167,7 +179,7 @@ def main():
         price_html = ('<div class="n">$%s</div><div class="%s">%s%.2f%% (futures)</div>'
                       % (format(price, ",.2f"), c, "▲ " if pct >= 0 else "▼ ", abs(pct)))
     else:
-        price_html = '<div class="n">--</div><div class="mut">Price abhi available nahi</div>'
+        price_html = '<div class="n">--</div><div class="mut">Price unavailable right now</div>'
 
     price_html += make_chart(get_history())
 
