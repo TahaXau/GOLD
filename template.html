@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="refresh" content="900">
 <title>Gold News Radar</title>
 <style>
 :root{--bg:#faf8f3;--card:#fff;--tx:#1d1b16;--mut:#6b6659;--bd:#e6e1d3;--hi:#c62828;--md:#e08a00;--lo:#8a8573;--gold:#b8860b;--dn:#c62828;--up:#2e7d32}
@@ -21,18 +20,39 @@ h1{font-size:22px;margin:4px 0 2px}
 h3{font-size:15px;margin:0 0 6px;font-weight:600}
 .meta{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--mut)}
 .imp{font-weight:600}
+.tfs,.ch{display:none!important}
+.tvbox{height:560px;border-radius:14px;overflow:hidden;border:1px solid var(--bd);margin-bottom:14px}
 .warn{font-size:12px;color:var(--mut);border-top:1px solid var(--bd);padding-top:10px;margin-top:14px}
 </style>
 </head>
 <body>
 <div class="w">
   <h1>🪙 Gold News Radar</h1>
-  <div class="sub">Last updated: <span id="upd"></span> · auto-refreshes every hour</div>
+  <div class="sub">Last updated: <span id="upd"></span> · news updates every hour</div>
   <div class="price">__PRICE__</div>
+  <div class="tvbox"><div id="tv_chart" style="height:100%"></div></div>
   __CARDS__
   <div class="warn">Not financial advice. HIGH/MED/LOW and bullish/bearish tags are assigned automatically from keywords and can be wrong. Read the full story before you trade.</div>
 </div>
+<script src="https://s3.tradingview.com/tv.js"></script>
 <script>
+try {
+  new TradingView.widget({
+    autosize: true,
+    symbol: "OANDA:XAUUSD",
+    interval: "60",
+    timezone: "Etc/UTC",
+    theme: window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light",
+    style: "1",
+    locale: "en",
+    enable_publishing: false,
+    allow_symbol_change: true,
+    hide_side_toolbar: false,
+    withdateranges: true,
+    save_image: true,
+    container_id: "tv_chart"
+  });
+} catch (e) {}
 function fmt(s){return new Date(s).toLocaleString([], {day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}
 document.getElementById("upd").textContent = fmt("__UPDATED__");
 document.querySelectorAll(".t").forEach(function(e){e.textContent = fmt(e.dataset.ts)});
