@@ -1,244 +1,157 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#0b0906">
+!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark"><meta name="theme-color" content="#070708">
 <title>Gold News Radar</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --velvet:#0b0906; --umber:#15100b; --umber2:#1c150e;
-  --champagne:#ecd69c; --gold:#c9a24a; --goldDeep:#8f6c22;
-  --ivory:#f4ecd8; --smoke:#9d927b; --line:rgba(201,162,74,.22);
-  --garnet:#c4414a; --emerald:#52b788; --amber:#b9801f;
-  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
-  --sans:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --pad:clamp(14px,3.2vw,36px);
-}
-*{box-sizing:border-box}
-html{color-scheme:dark}
-body{margin:0;background:var(--velvet);color:var(--ivory);font:400 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:
-   radial-gradient(900px 520px at 50% -8%,rgba(201,162,74,.20),transparent 70%),
-   radial-gradient(700px 500px at 100% 100%,rgba(143,108,34,.14),transparent 70%),
-   var(--velvet)}
-.w{max-width:1240px;margin:0 auto;padding:calc(var(--pad) * .8) var(--pad) calc(var(--pad) + env(safe-area-inset-bottom,0px))}
-
-/* header */
-.top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:6px 0 18px}
-h1{margin:0;font:600 clamp(26px,4.4vw,40px)/1.05 var(--serif);letter-spacing:.01em;
-  background:linear-gradient(180deg,#fff3cf,var(--champagne) 45%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
-.sub{color:var(--smoke);font-size:13px}
-
-/* hero */
-.hero{display:grid;gap:14px;grid-template-columns:1fr;margin-bottom:14px}
-.holo{position:relative;height:300px;border:1px solid var(--line);border-radius:22px;overflow:hidden;touch-action:pan-y;cursor:grab;
-  background:radial-gradient(60% 70% at 50% 62%,rgba(201,162,74,.16),transparent 70%),linear-gradient(180deg,var(--umber),var(--velvet))}
-.holo:active{cursor:grabbing}
+:root{--bg:#070708;--p1:#101012;--p2:#17171a;--ch:#f3dfa6;--gold:#e3b95c;--ivory:#f7f2e6;--mut:#a7a398;--line:rgba(227,185,92,.28);--red:#ff5964;--grn:#3fd49a;--amb:#f0a23a;--serif:"Cormorant Garamond",Georgia,serif;--sans:"Hanken Grotesk",system-ui,sans-serif;--pad:clamp(14px,3.2vw,36px)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ivory);font:400 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(900px 520px at 50% -8%,rgba(227,185,92,.17),transparent 70%),radial-gradient(700px 500px at 100% 100%,rgba(164,124,42,.10),transparent 70%),var(--bg)}
+.w{max-width:1240px;margin:0 auto;padding:0 var(--pad) calc(90px + env(safe-area-inset-bottom,0px))}
+.gt{background:linear-gradient(100deg,#fff3cf,var(--ch) 35%,var(--gold) 60%,#fff3cf 85%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shim 6s linear infinite}
+@keyframes shim{to{background-position:-200% 0}}
+nav.top{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:12px 0;backdrop-filter:blur(14px);background:rgba(7,7,8,.7)}
+nav.top b{font:600 24px var(--serif)}nav.top div a{color:var(--mut);text-decoration:none;margin-left:22px;font-size:14px}nav.top div a.on{color:var(--ch)}
+.tape{min-height:46px;margin-bottom:10px;overflow:hidden}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;transition-delay:calc(var(--i,0)*70ms)}.rv.in{opacity:1;transform:none}
+.box{border:1px solid var(--line);border-radius:22px;background:linear-gradient(160deg,var(--p2),var(--p1));backdrop-filter:blur(10px)}
+.hero{display:grid;gap:14px;margin-bottom:14px}
+.holo{position:relative;height:280px;overflow:hidden;touch-action:pan-y;cursor:grab;background:radial-gradient(60% 70% at 50% 62%,rgba(227,185,92,.2),transparent 70%),var(--p1)}
 .holo canvas{display:block;width:100%;height:100%}
-.holo::after{content:"";position:absolute;inset:0;pointer-events:none;
-  background:repeating-linear-gradient(0deg,rgba(255,235,180,.05) 0 1px,transparent 1px 4px);mix-blend-mode:screen}
-.holo .hint{position:absolute;left:16px;bottom:12px;font:italic 500 15px var(--serif);color:var(--smoke);pointer-events:none;z-index:2}
-.price{position:relative;display:flex;flex-direction:column;justify-content:center;padding:clamp(18px,3vw,34px);border:1px solid var(--line);border-radius:22px;
-  background:linear-gradient(160deg,var(--umber2),var(--umber) 60%,#100c08)}
-.price::before{content:"Gold futures, US dollars per ounce";display:block;color:var(--smoke);font-size:14px;margin-bottom:6px}
-.n{font:600 clamp(48px,9vw,92px)/1 var(--serif);letter-spacing:-.01em;
-  background:linear-gradient(180deg,#fff3cf,var(--champagne) 40%,var(--gold) 80%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.up{color:var(--emerald)}.dn{color:var(--garnet)}.mut{color:var(--smoke)}
-.price .up,.price .dn{font-size:18px;font-weight:600;margin-top:8px}
-.tfs,.ch{display:none!important}
-
-/* chart + news */
-.grid{display:grid;gap:14px;grid-template-columns:1fr}
-.tvbox{height:520px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--umber)}
-.news h2{margin:2px 0 12px;font:600 26px/1.1 var(--serif);color:var(--champagne)}
-.card{display:block;margin-bottom:10px;padding:14px 16px;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:16px;text-decoration:none;color:inherit;
-  background:linear-gradient(160deg,var(--umber2),var(--umber))}
-.card:has(.HIGH){border-left-color:var(--garnet)}
-.card:has(.MED){border-left-color:var(--amber)}
-.card:has(.LOW){border-left-color:var(--smoke)}
-.card:hover{border-color:rgba(236,214,156,.55)}
-.card:focus-visible,.holo:focus-visible{outline:2px solid var(--champagne);outline-offset:2px}
-.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;padding:2px 9px;border-radius:99px;color:var(--ivory);margin-bottom:7px}
-.HIGH{background:var(--garnet)}.MED{background:var(--amber)}.LOW{background:#5b5340}
-h3{margin:0 0 8px;font:500 16px/1.4 var(--sans);color:var(--ivory)}
-.meta{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--smoke)}
-.imp{font-weight:600}
-.warn{margin-top:22px;padding-top:14px;border-top:1px solid var(--line);color:var(--smoke);font-size:12.5px;max-width:80ch}
-
-@media (min-width:900px){
-  .hero{grid-template-columns:1.2fr 1fr}
-  .holo{height:420px}
-}
-@media (min-width:1000px){
-  .grid{grid-template-columns:minmax(0,1.75fr) minmax(320px,1fr);align-items:start}
-  .tvbox{height:680px}
-  .news{max-height:680px;overflow-y:auto;padding-right:6px;scrollbar-width:thin;scrollbar-color:var(--goldDeep) transparent}
-}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style>
-</head>
-<body>
+.holo::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,235,180,.05) 0 1px,transparent 1px 4px)}
+.pc{padding:clamp(18px,3vw,30px)}.lbl{color:var(--mut);font-size:14px}
+.n{font:600 clamp(48px,9vw,88px)/1.05 var(--serif)}
+.chg{font-weight:600;font-size:18px}.up{color:var(--grn)}.dn{color:var(--red)}
+.ty{min-height:26px;margin:8px 0 14px;color:var(--ch);font:italic 500 19px var(--serif)}.ty::after{content:"|";animation:bl 1s steps(1) infinite}@keyframes bl{50%{opacity:0}}
+.st{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.st div{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:9px 12px;font-size:12.5px;color:var(--mut)}.st b{display:block;font-size:16px;color:var(--ivory)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--grn);box-shadow:0 0 8px var(--grn)}.dot.off{background:var(--red);box-shadow:none}
+.src{margin-top:12px;font-size:12px;color:var(--mut)}
+h2{font:600 28px/1.1 var(--serif);color:var(--ch);margin:0 0 12px}
+section{margin-bottom:14px}.pad{padding:clamp(16px,2.6vw,26px)}
+.an{display:grid;gap:18px}.pill{display:inline-block;padding:4px 14px;border-radius:99px;font-weight:600;color:#1a1204}.Bullish{background:var(--grn)}.Bearish{background:var(--red)}.Neutral{background:var(--amb)}
+ul.why{margin:10px 0 0;padding-left:18px;color:var(--ivory)}ul.why li{margin-bottom:4px}
+.lv{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;text-align:center}.lv div{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:8px 2px;font-size:12px;color:var(--mut)}.lv b{display:block;font-size:14px;color:var(--ivory)}.lv .r b{color:var(--red)}.lv .s b{color:var(--grn)}
+.sw{position:relative;display:inline-flex;gap:0;padding:4px;margin-bottom:10px;border:1px solid var(--line);border-radius:99px;background:var(--p1)}
+.sw button{position:relative;z-index:1;font:500 14px var(--sans);color:var(--mut);background:none;border:0;padding:7px 16px;cursor:pointer}.sw button[aria-pressed=true]{color:#1a1204;font-weight:600}
+.sw i{position:absolute;top:4px;bottom:4px;border-radius:99px;background:linear-gradient(180deg,var(--ch),var(--gold));transition:left .35s ease,width .35s ease}
+.tv{height:500px;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--p1);position:relative}.tv p{position:absolute;inset:0;display:grid;place-items:center;margin:0;padding:20px;text-align:center;color:var(--mut)}
+.fl{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.fl button{font:500 13px var(--sans);color:var(--mut);background:var(--p1);border:1px solid var(--line);border-radius:99px;padding:6px 14px;cursor:pointer}.fl button[aria-pressed=true]{color:#1a1204;background:var(--gold);font-weight:600}
+.cd{display:block;margin-bottom:10px;padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:16px;text-decoration:none;color:inherit;background:linear-gradient(160deg,var(--p2),var(--p1));transition:border-color .2s}.cd:hover{border-color:var(--ch)}
+.cd.HIGH{border-left-color:var(--red)}.cd.MED{border-left-color:var(--amb)}.cd.LOW{border-left-color:#6b6b72}
+.tag{font-size:11px;font-weight:600;letter-spacing:.06em;padding:2px 9px;border-radius:99px;color:#1a1204;margin-right:8px}.HIGH .tag{background:var(--red)}.MED .tag{background:var(--amb)}.LOW .tag{background:#8a8a92}
+.cd h3{margin:8px 0;font:500 16px/1.4 var(--sans)}.mt{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--mut)}.bull{color:var(--grn)}.bear{color:var(--red)}
+.ev{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:12px 0;border-bottom:1px solid var(--line)}.ev:last-child{border:0}.ev small{color:var(--mut)}.ev .c{color:var(--ch);font-weight:600;text-align:right}.nx{border:1px solid var(--gold);border-radius:14px;padding:12px;background:rgba(227,185,92,.07);margin-bottom:6px}
+.msg{color:var(--mut);padding:10px 0}
+.warn{font-size:12.5px;color:var(--mut);border-top:1px solid var(--line);padding-top:14px;margin-top:20px;max-width:80ch}
+nav.bot{display:none}
+#intro{position:fixed;inset:0;z-index:99;display:grid;place-content:center;text-align:center;background:var(--bg);transition:opacity .8s}
+#intro .ic{display:flex;gap:14px;justify-content:center;margin-bottom:18px}#intro .ic span{width:38px;height:38px;border:1px solid var(--line);border-radius:12px;display:grid;place-items:center;color:var(--gold);animation:fi .8s both}
+#intro .ic span:nth-child(2){animation-delay:.2s}#intro .ic span:nth-child(3){animation-delay:.4s}
+#intro p{margin:0;font:500 22px var(--serif);color:var(--mut);animation:fi .8s .5s both}#intro h1{margin:2px 0 0;font:600 clamp(40px,9vw,72px)/1.05 var(--serif);animation:su .9s .8s both}
+@keyframes fi{from{opacity:0;transform:scale(.8)}}@keyframes su{from{opacity:0;transform:translateY(40px)}}
+@media(min-width:900px){.hero{grid-template-columns:1.1fr 1fr}.holo{height:100%;min-height:380px}.an{grid-template-columns:1fr 1.3fr}.st{grid-template-columns:repeat(4,1fr)}.tv{height:640px}}
+@media(max-width:899px){nav.top div{display:none}nav.bot{display:flex;position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:30;justify-content:space-around;padding:8px;border:1px solid var(--line);border-radius:22px;background:rgba(16,16,18,.88);backdrop-filter:blur(16px)}
+nav.bot a{color:var(--mut);text-decoration:none;font-size:12px;padding:6px 14px;border-radius:14px}nav.bot a.on{color:#1a1204;background:var(--gold);font-weight:600}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style></head><body>
+<div id="intro"><div class="ic"><span>&lt;/&gt;</span><span>$</span><span>&#9670;</span></div><p>Welcome to</p><h1 class="gt">Gold News Radar</h1></div>
 <div class="w">
-  <header class="top">
-    <h1>Gold News Radar</h1>
-    <div class="sub">Updated <span id="upd"></span>. News refreshes every hour.</div>
-  </header>
-
-  <section class="hero">
-    <div class="holo" id="holo" role="img" aria-label="Rotating 3D hologram of stacked gold bars"><div class="hint">Drag to turn the bars</div></div>
-    <div class="price"><div class="n">$4,028.20</div><div class="dn">▼ 2.93% (futures)</div><div class="mut" style="margin-top:14px;font-size:13px">Last 3 months, daily candles (<span class="dn" style="font-weight:600">-1.7%</span>)</div><svg viewBox="0 0 600 280" style="width:100%;height:auto;display:block" role="img" aria-label="Gold candlestick chart"><line x1="8" y1="254.0" x2="550" y2="254.0" style="stroke:var(--bd);stroke-width:1"/><text x="555" y="258.0" style="fill:var(--mut);font-size:13px">3,943</text><line x1="8" y1="194.0" x2="550" y2="194.0" style="stroke:var(--bd);stroke-width:1"/><text x="555" y="198.0" style="fill:var(--mut);font-size:13px">4,158</text><line x1="8" y1="134.0" x2="550" y2="134.0" style="stroke:var(--bd);stroke-width:1"/><text x="555" y="138.0" style="fill:var(--mut);font-size:13px">4,372</text><line x1="8" y1="74.0" x2="550" y2="74.0" style="stroke:var(--bd);stroke-width:1"/><text x="555" y="78.0" style="fill:var(--mut);font-size:13px">4,587</text><line x1="8" y1="14.0" x2="550" y2="14.0" style="stroke:var(--bd);stroke-width:1"/><text x="555" y="18.0" style="fill:var(--mut);font-size:13px">4,801</text><line x1="12.2" y1="204.7" x2="12.2" y2="219.3" style="stroke:var(--dn);stroke-width:1.2"/><rect x="9.6" y="210.8" width="5.2" height="5.7" style="fill:var(--dn)"/><line x1="20.5" y1="214.1" x2="20.5" y2="235.0" style="stroke:var(--dn);stroke-width:1.2"/><rect x="17.9" y="214.9" width="5.2" height="12.4" style="fill:var(--dn)"/><line x1="28.8" y1="205.9" x2="28.8" y2="239.8" style="stroke:var(--up);stroke-width:1.2"/><rect x="26.3" y="227.9" width="5.2" height="4.3" style="fill:var(--up)"/><line x1="37.2" y1="204.9" x2="37.2" y2="230.1" style="stroke:var(--up);stroke-width:1.2"/><rect x="34.6" y="210.1" width="5.2" height="11.0" style="fill:var(--up)"/><line x1="45.5" y1="190.3" x2="45.5" y2="216.7" style="stroke:var(--dn);stroke-width:1.2"/><rect x="42.9" y="192.2" width="5.2" height="15.9" style="fill:var(--dn)"/><line x1="53.9" y1="197.4" x2="53.9" y2="217.4" style="stroke:var(--dn);stroke-width:1.2"/><rect x="51.3" y="200.3" width="5.2" height="12.5" style="fill:var(--dn)"/><line x1="62.2" y1="192.3" x2="62.2" y2="210.6" style="stroke:var(--up);stroke-width:1.2"/><rect x="59.6" y="195.4" width="5.2" height="12.0" style="fill:var(--up)"/><line x1="70.5" y1="146.3" x2="70.5" y2="204.1" style="stroke:var(--up);stroke-width:1.2"/><rect x="68.0" y="152.7" width="5.2" height="48.0" style="fill:var(--up)"/><line x1="78.9" y1="136.3" x2="78.9" y2="159.4" style="stroke:var(--dn);stroke-width:1.2"/><rect x="76.3" y="152.2" width="5.2" height="2.1" style="fill:var(--dn)"/><line x1="87.2" y1="117.1" x2="87.2" y2="157.5" style="stroke:var(--up);stroke-width:1.2"/><rect x="84.6" y="126.3" width="5.2" height="28.4" style="fill:var(--up)"/><line x1="95.6" y1="111.1" x2="95.6" y2="133.5" style="stroke:var(--up);stroke-width:1.2"/><rect x="93.0" y="120.7" width="5.2" height="5.5" style="fill:var(--up)"/><line x1="103.9" y1="99.6" x2="103.9" y2="121.8" style="stroke:var(--dn);stroke-width:1.2"/><rect x="101.3" y="113.1" width="5.2" height="1.6" style="fill:var(--dn)"/><line x1="112.2" y1="97.4" x2="112.2" y2="120.2" style="stroke:var(--up);stroke-width:1.2"/><rect x="109.6" y="107.3" width="5.2" height="10.5" style="fill:var(--up)"/><line x1="120.6" y1="95.7" x2="120.6" y2="126.2" style="stroke:var(--dn);stroke-width:1.2"/><rect x="118.0" y="106.9" width="5.2" height="13.5" style="fill:var(--dn)"/><line x1="128.9" y1="110.9" x2="128.9" y2="135.8" style="stroke:var(--up);stroke-width:1.2"/><rect x="126.3" y="115.7" width="5.2" height="8.1" style="fill:var(--up)"/><line x1="137.2" y1="102.0" x2="137.2" y2="119.9" style="stroke:var(--up);stroke-width:1.2"/><rect x="134.7" y="105.6" width="5.2" height="9.4" style="fill:var(--up)"/><line x1="145.6" y1="100.1" x2="145.6" y2="130.9" style="stroke:var(--dn);stroke-width:1.2"/><rect x="143.0" y="105.6" width="5.2" height="14.8" style="fill:var(--dn)"/><line x1="153.9" y1="75.0" x2="153.9" y2="132.3" style="stroke:var(--up);stroke-width:1.2"/><rect x="151.3" y="85.5" width="5.2" height="43.1" style="fill:var(--up)"/><line x1="162.3" y1="71.0" x2="162.3" y2="96.5" style="stroke:var(--dn);stroke-width:1.2"/><rect x="159.7" y="75.8" width="5.2" height="2.4" style="fill:var(--dn)"/><line x1="170.6" y1="44.9" x2="170.6" y2="79.9" style="stroke:var(--up);stroke-width:1.2"/><rect x="168.0" y="47.7" width="5.2" height="29.0" style="fill:var(--up)"/><line x1="178.9" y1="31.5" x2="178.9" y2="55.7" style="stroke:var(--up);stroke-width:1.2"/><rect x="176.4" y="42.9" width="5.2" height="6.8" style="fill:var(--up)"/><line x1="187.3" y1="26.9" x2="187.3" y2="53.6" style="stroke:var(--dn);stroke-width:1.2"/><rect x="184.7" y="39.4" width="5.2" height="4.4" style="fill:var(--dn)"/><line x1="195.6" y1="33.6" x2="195.6" y2="59.5" style="stroke:var(--dn);stroke-width:1.2"/><rect x="193.0" y="37.9" width="5.2" height="17.5" style="fill:var(--dn)"/><line x1="204.0" y1="42.9" x2="204.0" y2="65.7" style="stroke:var(--up);stroke-width:1.2"/><rect x="201.4" y="52.3" width="5.2" height="3.9" style="fill:var(--up)"/><line x1="212.3" y1="45.6" x2="212.3" y2="99.6" style="stroke:var(--dn);stroke-width:1.2"/><rect x="209.7" y="54.6" width="5.2" height="35.3" style="fill:var(--dn)"/><line x1="220.6" y1="92.2" x2="220.6" y2="113.4" style="stroke:var(--dn);stroke-width:1.2"/><rect x="218.0" y="102.9" width="5.2" height="1.0" style="fill:var(--dn)"/><line x1="229.0" y1="95.3" x2="229.0" y2="134.7" style="stroke:var(--dn);stroke-width:1.2"/><rect x="226.4" y="98.6" width="5.2" height="28.6" style="fill:var(--dn)"/><line x1="237.3" y1="113.8" x2="237.3" y2="146.0" style="stroke:var(--up);stroke-width:1.2"/><rect x="234.7" y="122.1" width="5.2" height="10.5" style="fill:var(--up)"/><line x1="245.6" y1="81.8" x2="245.6" y2="118.7" style="stroke:var(--up);stroke-width:1.2"/><rect x="243.1" y="87.0" width="5.2" height="29.0" style="fill:var(--up)"/><line x1="254.0" y1="87.6" x2="254.0" y2="122.8" style="stroke:var(--dn);stroke-width:1.2"/><rect x="251.4" y="92.0" width="5.2" height="12.7" style="fill:var(--dn)"/><line x1="262.3" y1="101.3" x2="262.3" y2="131.5" style="stroke:var(--dn);stroke-width:1.2"/><rect x="259.7" y="107.6" width="5.2" height="7.7" style="fill:var(--dn)"/><line x1="270.7" y1="104.1" x2="270.7" y2="130.6" style="stroke:var(--up);stroke-width:1.2"/><rect x="268.1" y="109.2" width="5.2" height="17.3" style="fill:var(--up)"/><line x1="279.0" y1="103.8" x2="279.0" y2="138.9" style="stroke:var(--dn);stroke-width:1.2"/><rect x="276.4" y="112.8" width="5.2" height="11.4" style="fill:var(--dn)"/><line x1="287.3" y1="113.6" x2="287.3" y2="144.9" style="stroke:var(--up);stroke-width:1.2"/><rect x="284.8" y="123.7" width="5.2" height="13.8" style="fill:var(--up)"/><line x1="295.7" y1="127.1" x2="295.7" y2="156.1" style="stroke:var(--dn);stroke-width:1.2"/><rect x="293.1" y="133.2" width="5.2" height="6.5" style="fill:var(--dn)"/><line x1="304.0" y1="137.9" x2="304.0" y2="153.7" style="stroke:var(--dn);stroke-width:1.2"/><rect x="301.4" y="142.9" width="5.2" height="2.1" style="fill:var(--dn)"/><line x1="312.4" y1="122.5" x2="312.4" y2="161.6" style="stroke:var(--up);stroke-width:1.2"/><rect x="309.8" y="129.7" width="5.2" height="15.1" style="fill:var(--up)"/><line x1="320.7" y1="119.7" x2="320.7" y2="155.7" style="stroke:var(--up);stroke-width:1.2"/><rect x="318.1" y="126.3" width="5.2" height="27.5" style="fill:var(--up)"/><line x1="329.0" y1="115.0" x2="329.0" y2="134.0" style="stroke:var(--up);stroke-width:1.2"/><rect x="326.4" y="119.2" width="5.2" height="12.1" style="fill:var(--up)"/><line x1="337.4" y1="120.0" x2="337.4" y2="137.3" style="stroke:var(--dn);stroke-width:1.2"/><rect x="334.8" y="122.5" width="5.2" height="8.1" style="fill:var(--dn)"/><line x1="345.7" y1="122.2" x2="345.7" y2="146.4" style="stroke:var(--dn);stroke-width:1.2"/><rect x="343.1" y="131.1" width="5.2" height="1.7" style="fill:var(--dn)"/><line x1="354.0" y1="124.1" x2="354.0" y2="151.2" style="stroke:var(--dn);stroke-width:1.2"/><rect x="351.5" y="127.7" width="5.2" height="21.3" style="fill:var(--dn)"/><line x1="362.4" y1="143.5" x2="362.4" y2="160.2" style="stroke:var(--dn);stroke-width:1.2"/><rect x="359.8" y="147.3" width="5.2" height="7.4" style="fill:var(--dn)"/><line x1="370.7" y1="139.7" x2="370.7" y2="157.2" style="stroke:var(--up);stroke-width:1.2"/><rect x="368.1" y="148.2" width="5.2" height="3.3" style="fill:var(--up)"/><line x1="379.1" y1="149.8" x2="379.1" y2="198.1" style="stroke:var(--dn);stroke-width:1.2"/><rect x="376.5" y="150.0" width="5.2" height="41.0" style="fill:var(--dn)"/><line x1="387.4" y1="177.1" x2="387.4" y2="197.5" style="stroke:var(--up);stroke-width:1.2"/><rect x="384.8" y="187.8" width="5.2" height="8.3" style="fill:var(--up)"/><line x1="395.7" y1="167.8" x2="395.7" y2="188.2" style="stroke:var(--dn);stroke-width:1.2"/><rect x="393.2" y="177.6" width="5.2" height="8.3" style="fill:var(--dn)"/><line x1="404.1" y1="175.8" x2="404.1" y2="190.7" style="stroke:var(--up);stroke-width:1.2"/><rect x="401.5" y="181.5" width="5.2" height="3.4" style="fill:var(--up)"/><line x1="412.4" y1="165.6" x2="412.4" y2="195.1" style="stroke:var(--dn);stroke-width:1.2"/><rect x="409.8" y="180.8" width="5.2" height="11.8" style="fill:var(--dn)"/><line x1="420.8" y1="182.4" x2="420.8" y2="196.0" style="stroke:var(--dn);stroke-width:1.2"/><rect x="418.2" y="190.7" width="5.2" height="3.5" style="fill:var(--dn)"/><line x1="429.1" y1="178.7" x2="429.1" y2="201.5" style="stroke:var(--up);stroke-width:1.2"/><rect x="426.5" y="185.7" width="5.2" height="5.0" style="fill:var(--up)"/><line x1="437.4" y1="182.8" x2="437.4" y2="212.6" style="stroke:var(--dn);stroke-width:1.2"/><rect x="434.8" y="183.5" width="5.2" height="15.2" style="fill:var(--dn)"/><line x1="445.8" y1="190.3" x2="445.8" y2="202.3" style="stroke:var(--up);stroke-width:1.2"/><rect x="443.2" y="194.2" width="5.2" height="4.8" style="fill:var(--up)"/><line x1="454.1" y1="172.7" x2="454.1" y2="194.4" style="stroke:var(--up);stroke-width:1.2"/><rect x="451.5" y="177.6" width="5.2" height="15.8" style="fill:var(--up)"/><line x1="462.4" y1="170.3" x2="462.4" y2="188.3" style="stroke:var(--dn);stroke-width:1.2"/><rect x="459.9" y="176.3" width="5.2" height="8.4" style="fill:var(--dn)"/><line x1="470.8" y1="175.2" x2="470.8" y2="190.6" style="stroke:var(--dn);stroke-width:1.2"/><rect x="468.2" y="183.4" width="5.2" height="5.1" style="fill:var(--dn)"/><line x1="479.1" y1="184.0" x2="479.1" y2="211.5" style="stroke:var(--dn);stroke-width:1.2"/><rect x="476.5" y="186.6" width="5.2" height="21.3" style="fill:var(--dn)"/><line x1="487.5" y1="182.8" x2="487.5" y2="204.3" style="stroke:var(--up);stroke-width:1.2"/><rect x="484.9" y="190.5" width="5.2" height="11.7" style="fill:var(--up)"/><line x1="495.8" y1="176.4" x2="495.8" y2="191.2" style="stroke:var(--dn);stroke-width:1.2"/><rect x="493.2" y="184.3" width="5.2" height="3.1" style="fill:var(--dn)"/><line x1="504.1" y1="179.0" x2="504.1" y2="194.6" style="stroke:var(--dn);stroke-width:1.2"/><rect x="501.6" y="186.3" width="5.2" height="7.0" style="fill:var(--dn)"/><line x1="512.5" y1="189.2" x2="512.5" y2="201.7" style="stroke:var(--dn);stroke-width:1.2"/><rect x="509.9" y="192.7" width="5.2" height="5.5" style="fill:var(--dn)"/><line x1="520.8" y1="193.2" x2="520.8" y2="203.9" style="stroke:var(--up);stroke-width:1.2"/><rect x="518.2" y="196.1" width="5.2" height="1.8" style="fill:var(--up)"/><line x1="529.2" y1="192.1" x2="529.2" y2="227.8" style="stroke:var(--dn);stroke-width:1.2"/><rect x="526.6" y="193.6" width="5.2" height="27.6" style="fill:var(--dn)"/><line x1="537.5" y1="224.0" x2="537.5" y2="241.1" style="stroke:var(--dn);stroke-width:1.2"/><rect x="534.9" y="226.3" width="5.2" height="9.6" style="fill:var(--dn)"/><line x1="545.8" y1="228.0" x2="545.8" y2="240.6" style="stroke:var(--up);stroke-width:1.2"/><rect x="543.2" y="230.2" width="5.2" height="4.5" style="fill:var(--up)"/><text x="8" y="274" style="fill:var(--mut);font-size:13px">27 Jul</text><text x="550" y="274" text-anchor="end" style="fill:var(--mut);font-size:13px">26 Oct</text></svg></div>
-  </section>
-
-  <main class="grid">
-    <div class="tvbox"><div id="tv_chart" style="height:100%"></div></div>
-    <aside class="news">
-      <h2>What is moving gold</h2>
-      <a class="card" href="https://news.google.com/rss/articles/CBMipAFBVV95cUxQcEp2OEo3NHZPUmZEdVNidXdfbjZTbDlKaWkzTlQwQ21FTnhhYWpxcDM5RVJKN2VudHpVUU5JMkZFa3BEMFEyamtqVFd4MTdfS3JhYWNfNzl6Q2hvUnQ5bVZ2N1NOZ3U0enBnTUM0cVRNR3YzUFBGWW9Bc2lRNUdyX1dVTXd3WW1NZlpVSkpwZmFGSHQzb29MdVhIdkMwNEpGMFRScw?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>US CPI Forecast: Inflation Data and Fed Rate Decision - Equiti Global</h3><div class="meta"><span class="t" data-ts="2026-10-25T21:10:17+00:00"></span><span class="imp ">Impact unclear</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMi9gFBVV95cUxNT1BWOXZCeWs2M29VbWYySGIySXFFNnhwWmdDR2V1OGdyRHJsbVpfWlJ4eUdWNDVUemJGbUxNSkhFQXE4bl9VRGkyWlZ5WVA1X0tCMVFTUC1Zd2lRM2Q5cWpzcHVEdGF2aEd0UjkwVU0yTldSSzV5X1RUeHdKSi1fZERWS3VqZVJSdWNnOEh1bjlIZUJXQl9GeGZJRlVaSWJfNDdhMW5VeTlMbnk4eUVuUFMtb2RYTDZ3ZGhvQmY4ZkhIc2RHV2Y4MGpzMUhaUXN5WVZ6M2ktanhObGQ2d0xuZm85UEZKR25RM1NCWEYwQ25TMHI1MlE?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>&#x27;No more shine&#x27; - Gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets - The Star</h3><div class="meta"><span class="t" data-ts="2026-10-25T12:50:00+00:00"></span><span class="imp dn">Bearish for gold</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMitAFBVV95cUxPV0Fyc3dwNXlGcWtWWUlqUkFqbVBwb0U2dnpwVnZyd3lFbWxrY1k4TnVJQkZtRkZzS0liRUl6bjF1c0pjdm5jZERnQ01Ldi1TWHUyb01NTUhjYUdHYzk0UEU0Q3lSRGVaUlQ0WmF2czAtZldPWC1zM2czYnBHdzIxMDV0VWVwelZFRnNRX29FM0gxNnlMYTRseXZuQ1dlSnRZTFR6RjBWNnhZdGtWazRtN19qRkI?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>Gold Prices Rise as Oil Declines Ahead of Federal Reserve Decision - www.jordannews.jo</h3><div class="meta"><span class="t" data-ts="2026-10-26T07:18:41+00:00"></span><span class="imp ">Impact unclear</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMitwFBVV95cUxQY3BtX2lDMENRLVpOOF9JUFQtVDFKRG1QaW9GVUtQU3NXdDVUSG05cWNKdTE4bDQ5cGdWejEzQXRQY0Y3VTNHeUVfOVRVSExWZERpc2QtNlN5QkNJZTBWTElrRFRwT0o5VHgwUlpuZTB4T25CN3ZBSi1vUFg5YmJPUUFCeVh6UFhaVkV1bU9mRmZSQTVWRWFJZUxVcEhaLTBIbnphZVZyUnFJbW8tVng5UVV2U3BveWc?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>Silver Price Forecast: $50 in View as Oil Fuels Fed Rate Hike Fears - FXEmpire</h3><div class="meta"><span class="t" data-ts="2026-10-26T05:24:47+00:00"></span><span class="imp dn">Bearish for gold</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMidkFVX3lxTE5PeU9odW5OMHJSbnlUYkRBa2dkbTRIUWFvT2xLQWNXT3I5UlFTamtKcG4wV3NXZlViNVM3VTFJeDM5dFRJNF8ySDEzaHdoV1ZkZmJkaUJXUTNyS2VOTTVvYi02TU5fMHJOLW1wX1B1STY0NS1tTnc?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>Gold Hovers Near $4,000 as Oil-Driven Inflation Fears Collide With Fed Rate Bets - BigGo Finance</h3><div class="meta"><span class="t" data-ts="2026-10-26T03:35:00+00:00"></span><span class="imp ">Impact unclear</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMixAFBVV95cUxOZzk3VUVkRDQwNHBUVEdySGJaQXRFVDFMRUFJQmJKTm83WUNDbkVlMlRLZGpOWF9tUnVJRVpVUjEzSWxiYW11T1BWWlBDRlBvR3owRzJtN0ktWlNfSFhpOGI0emltQUZHWFAxNUgtM1RxZE5VbUpSWnVUclBfZDdrMkRoR0Vkb3Jrd25EVVJwM0VxZDdQekx4QjQ3MDlOejZYYmtFZk9NZmQyd1dMZUgwSE9VeG5mUnA4eUw5Z2xuNlZLcFpi?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>Gold Falls Below $4,000 as Market Focuses on Fed and September PCE After Consecutive Adjustments - TradingKey</h3><div class="meta"><span class="t" data-ts="2026-10-26T02:22:45+00:00"></span><span class="imp dn">Bearish for gold</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxPTmFmX1RmM3JyODd1b0ktci1CSVdFMFZ3cXFBOUM4Ym9SdEdGWEFWcUxfaHZ5RnBzcldtUE9XS1BqSUp3WXNfd3dkUU9jejB6ZnB6aUowbDRsWDI4Wnljcm1HcUt2a294Mml4ck1Dak9maFQtSFMyZkFhMW9lZWlkZEZEeU9XdWVpUldkZGIxRnF3NDBzOFQxTGNSVnN1Vjg0cWw1VExUN2l5cnFUR3JRc3NxNFFiZUtlcTAw0gHHAUFVX3lxTE9xaVNsa3ozU3VYcUlXUXR6U2VJY2JLRWtMdkRHVDUzNFk5R1RZczBPTk9Cbzhnc1RHdzZrMGNpTmhRT2tTbzRKVkZIWTVwdTlWU1QwRTllcUhvTXdBMjlvOV9odTJ4cl9ZVzNndFB0VnNYSTdad19rX29sMUdKZTBfSE5GZDhBMEZkYWZheXhEQVNpd0F2SDE0SGRkSGpKZmlyN1RyOWp3Qldjb05ZSm9wdGZIUzlqWF9HbUdmNmdFSFVCSDdJTVU?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>Australian Dollar Outlook: AUD/USD Screams Sentiment Extreme Into Fed, CPI - FOREX.com</h3><div class="meta"><span class="t" data-ts="2026-10-25T19:36:04+00:00"></span><span class="imp ">Impact unclear</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMiZEFVX3lxTE1NZDhEUFNaSUpHSl9aUEdiRFJUOFdMR09tdl9NemtsYzlFTDQteU01eUgzbm13MHJTenVFRTRKWDVRZmdJOHdQTUlkX2prMm56LTBnakQ0SklmMnpvb2ZHNWRTaTc?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>Gold prices rise in global market ahead of US federal reserve decision - Pakistan Connect</h3><div class="meta"><span class="t" data-ts="2026-10-26T08:59:02+00:00"></span><span class="imp ">Impact unclear</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMikgFBVV95cUxPc0JWdnppajUyejgwUkZHSC1qNjlJNW1YbE5rV0NMazBSME05d0IzRDNqY3ZVZC10eEh5Ynh3eWZJTko4U3hsZFg4bjdlQUF5N29BMjJLd3NHdnFSb2FQT0NOOTN2b20tMnNWQk9jQlZsdWtQRnRSX1NHbkZqWG5rMktpc3F6dWgzcHNBRUQ5UW0ydw?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>Global gold prices remain under downward pressure, with the focus shifting to the Fed. - Vietnam.vn</h3><div class="meta"><span class="t" data-ts="2026-10-26T04:48:32+00:00"></span><span class="imp up">Bullish for gold</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMiWEFVX3lxTE9nRXJYX2c5eHNlNV9FTDVDeFRycElySVVfQnRkZVlGRElCMXJfZnhQZEhFb0JUQV94SlNiaVlSaHZ5N1pBZ1lSbDZjOE0tUVA3aDZsaWt4YVQ?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>U.S. Fed likely to opt for a “hawkish hold” amid inflation rebound and midterm-election pressure - 파이낸셜뉴스</h3><div class="meta"><span class="t" data-ts="2026-10-26T07:24:35+00:00"></span><span class="imp dn">Bearish for gold</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxPdDdwbjFmaURadlM3WGJzNW5VTThBSEJvcldKc1FCRDV5N2xPdHB0RDdWSEpLNEtPc0NfS0JjSlNKdDk1NVItaXNHYk93QU5UVFJnX2tkUlhjVTktS1pESFpSSXAyb0thUkh0RnhLcWFrWlNPUXdDMG9DMGFFMjZ4VUpoa3c1ODZOYWRKa2plcUh0R2FJSGt4YVNqRzgtUGVPN1dlY0plUUNJYnFzOGJZanFfSE9DMnRWYzNv?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>Gold Price Forecast: XAU/USD Reclaims $4,000 as Oil Cools Ahead of Fed Decision - FXLeaders</h3><div class="meta"><span class="t" data-ts="2026-10-26T07:23:31+00:00"></span><span class="imp ">Impact unclear</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMiowFBVV95cUxNdW9aWkNHWmw4S1dsWno5U2Q3SWcxWlpodWJMWjJ4d253VVpTOGxLODE3dkh3dXVHQlU4ekNQVHlOR2ZvczdQUGR5MFB5TzdzWnBGSUdjMU9mMnk1VkhjbVAyM201dTN0bHZacGxYb3pBeFQ5RWs3SUEzaEhKZjcwMmh5WHZIRXMwYVhWUzF1LVZmR2xONE0tY3BKMFFDdGZzME1N?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>AUD/USD coils ahead of US CPI as breakout risk builds - StoneX</h3><div class="meta"><span class="t" data-ts="2026-10-26T07:21:15+00:00"></span><span class="imp ">Impact unclear</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMivAFBVV95cUxQaXlxaWRVVFJ5R2FkNUJLbXJvXzEwakI3WllZRlN5cGFEYkFoSG4xTVhWZ280NlNzSUNxdnp0R0lKSjVaNHB5SW44bm5FajJnd2JyNHVVZVAweGJYaUVBUHZsQWdhWlZiOW8ybFA2NGdTVlVWYU5USUxad3dhLS1aSXJhdnVCcE1xbkFEWFV3Z2dJZDJNNjJfd0t1S2hfR2hZR1AzaS1pWGZiN21qWDB2Rm1BZkNzUHNmN0NtTA?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>Economic Week Ahead: Fed Decision, US Inflation and Big Tech Earnings in Focus - Investing.com Canada</h3><div class="meta"><span class="t" data-ts="2026-10-26T06:52:49+00:00"></span><span class="imp ">Impact unclear</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMi6gFBVV95cUxNNEZjUEVPTy1Hakg0ZV90SmJKZWZuVV9Bc3ZKOW9oOGdYYUFmdTFJNzZUaUhtYmpxVF8zWFNJR295YXY4Vzh6N213RzRMaHN1OW9ocG5hRFFpMFFMUXN0U3NBUFdYdVVUN3hlYVd5NWxCRFl2MGZSbFBQMHBTbXZfWjJmdFdWRkpiOXA0c2ZNaEtHc3lya3A0UENXOFQtVkk3S1ZhZU1uR0lyX2hPTER6WnlTTzZadHRDbUZMS1YwRktnbUY5VGJEdmpCeXdHTGR4eVlTTjcxOFM5U1p6bHIzLWJyRGhxVHYtT1E?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>Australian Dollar bulls seem hesitant below one-month top before Aussie CPI, FOMC meeting - www.tmgm.com</h3><div class="meta"><span class="t" data-ts="2026-10-26T06:27:58+00:00"></span><span class="imp ">Impact unclear</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMilAFBVV95cUxOdVBTZ0xnSmRSR0FwRWJPaWlXMTROZGJsOEJqeTdaVTJ5MnlndFpIcDFEMGRhYk5TeW1jazVsS1c5QUFlS2N6QU5tMTdsZ2RJTUlHajV4QXlMNktBdjc5Z0tCajF0angtblZib09ucmpOUjVoLUIzdF9TdFlwbUpva2tFa2xMRS1rUmZZZE84T09sZUZa0gGaAUFVX3lxTE1tUkczd19CaVZvdl9NWVFkMXpSWDNkTF92ai00a00wS0IwXzRHSnE3eVczV2pNcW1kRWlVR2xjM0ctbThTMGRSUUEtelJydE5MWk1vN3dKdHlCNF9CY1YzVDAwcjRfQ1hGN1NLUlpnM2lOcFVLcWdNSWxqcmRrMVhlSXBhY2g4LW5xX01QcGVIVXhpb3llZk1WYWc?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>Gold gains on softer oil prices; Fed decision in focus - CNBC</h3><div class="meta"><span class="t" data-ts="2026-10-26T06:08:32+00:00"></span><span class="imp ">Impact unclear</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMimwFBVV95cUxPZml1aC0yS2NrLUloeEFPZnYyeExpazhPVExTT1BLcV9HZGxEZWFzcHFUMTJFbDhUTjgyaE5EbGRja1BRX0p2UzlDSmEzUUpzTG9ZT2xKZEZMczFvb1pzU2xrdXlNT0dDUXYtQnhoLUFpT09xQmF5Q25FQXdKNGpjOERVdTB1UTk4NkhSd2k3cUNBSTJRMVVsUlpSWQ?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>Gold gains on softer oil prices; Fed decision in focus - Reuters</h3><div class="meta"><span class="t" data-ts="2026-10-26T05:56:00+00:00"></span><span class="imp ">Impact unclear</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMizgFBVV95cUxOYXBOa2FKaC13cG10VExFNmJwRWJ4Q2JObE5VaVhpQVVjVnZoQzM3R1VsT2NIMnJBWXVveS1WRVJQaWJDUWtCemRtZ2tSczlselNFalZVMHZ4NnQ3Tm9OZlV5WUpNd2ZQbElRN3VkRUFMVEtESTUwdVpHZTlmNTVJT0ZyT0YyMXphNmhtdmI4a3JNRmgtd0ZFOTFXbXA4V0I3NkJVME9tTzAyVlBJaUZtTE8tU1l3ODFhc2dlZFpDbHRGSFN3enc4VloySlRjQQ?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>Gold Falls As Rising Oil Prices Reinforce Fed Outlook For Higher Rates To Last By Kedia Advisory - Investing.com India</h3><div class="meta"><span class="t" data-ts="2026-10-26T04:40:05+00:00"></span><span class="imp dn">Bearish for gold</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMiswFBVV95cUxNRGJobFdFa1dObjZ3b3JHb2ZlVTdOM2h1WmhUSU5kUHlYaUZpbjhKRGtaVklWaFV2T09GSXBCNEJTSEFiVjRqSkhUczBaa205ak03WFRlQ1FhUk5iZ2c4c3loOXdoMHlyN0wzTVBpenRKTzJQYUFmazBQVi05akRLLVpsTHZfMmlTTmRqNlE5MHhoZ3haRm5ZeVZJbzM3Z3ZhTjZkVGdndEpJUkItZk1jSWZhQQ?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>Dollar Slips As Treasury Yields Ease Ahead Of Central Bank Decisions - BusinessToday Malaysia</h3><div class="meta"><span class="t" data-ts="2026-10-26T03:29:39+00:00"></span><span class="imp dn">Bearish for gold</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMiwgFBVV95cUxNTEhuOElqOVdNbGRMZnFRT20wX01DbXJhRnNKcW96WWp0Zy1vdlEta0xTcmZUbW9nTVZXOUIwSmtGWElVVWhVQ0hEd1FXVWE0RENsQThXRE5VYWJtUG1MTTM4M1JBOUJWR2phbVRlVXRTRUFIQlBhSHFDeHQwOTYtd0VubTJMN2pNY2NKRWo0R0xRQU5DbHNQck51eXBWNE5WR2VyZDVDMkRzb2xpZ3psVUdMMkp5ZEdjeGZzRE5EYnBVQQ?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>USD/CHF Rebounds as Treasury Yields Firm, Fed-SNB Rate Gap Boosts Dollar Demand - VT Markets</h3><div class="meta"><span class="t" data-ts="2026-10-26T02:08:14+00:00"></span><span class="imp ">Impact unclear</span></div></a>
-<a class="card" href="https://news.google.com/rss/articles/CBMi_gFBVV95cUxQZTBxdVB6WEpfWU5HZmNKZVdTT3NKemZoSDJ2NTR0X055aXc1V2xEMXFQV1J5aEF4LUp2V1F0Zk9DMkt0MVR0dkpDNkNUUWgyRFV4cXlPcmtWUEk0c2YwWG1IWVphVUE5WmV4S1k5X0xENkFnSzNweFRRTHJ2dkxtVHVBdV8taXRMWWFkQ0tsQ0Q1dl9GTjNyWmNEblB2TnNHZEROdmNubE90b3dqNm9YZmk4alAzRVAxek9DRmhmakVsLVNUMlM4QVIzYmYtSU5Qd0hzeDhuck9iQmktbHdkSjRSdXBLOWVqRm43YUpmWG1YMExyTDJibjlZMzNuQQ?oc=5" target="_blank" rel="noopener"><span class="tag HIGH">HIGH</span><h3>Gold&#x27;s $4,000 Line Holds the Market&#x27;s Gaze as Margin Calls, Oil and a Hawkish Fed Pull in Different - ad-hoc-news.de</h3><div class="meta"><span class="t" data-ts="2026-10-26T02:01:02+00:00"></span><span class="imp dn">Bearish for gold</span></div></a>
-    </aside>
-  </main>
-
-  <div class="warn">Not financial advice. The HIGH, MED and LOW tags and the bullish or bearish labels are assigned automatically from keywords and can be wrong. Read the full story before you trade.</div>
+<nav class="top"><b class="gt">Gold News Radar</b><div><a href="#home" class="on">Home</a><a href="#chart">Chart</a><a href="#news">News</a><a href="#calendar">Calendar</a></div></nav>
+<div class="tape" id="tape"></div>
+<section id="home" class="hero">
+ <div class="box holo rv" id="holo" role="img" aria-label="Rotating 3D gold bars"></div>
+ <div class="box pc rv" style="--i:1">
+  <div class="lbl" id="plabel">Gold price</div><div class="n gt" id="pnum">--</div><div class="chg" id="pchg"></div>
+  <div class="ty" id="ty"></div>
+  <div class="st"><div>Day high<b id="hi">--</b></div><div>Day low<b id="lo">--</b></div><div>Previous close<b id="pv">--</b></div><div>Market<b id="ms"></b></div></div>
+  <div class="src" id="src"></div>
+ </div>
+</section>
+<section class="box pad rv an" id="analysis"></section>
+<section id="chart" class="rv">
+ <h2>Chart</h2>
+ <div class="sw" id="sw"><i></i><button aria-pressed="true" data-s="TVC:GOLD">Spot gold</button><button aria-pressed="false" data-s="OANDA:XAUUSD">XAU/USD</button><button aria-pressed="false" data-s="COMEX:GC1!">Futures</button></div>
+ <div class="tv"><div id="tv" style="height:100%"></div><p id="tvm">Loading chart...</p></div>
+</section>
+<section id="news" class="rv">
+ <h2>What is moving gold</h2>
+ <div class="fl" id="fl"><button aria-pressed="true" data-f="all">All</button><button aria-pressed="false" data-f="bull">Bullish</button><button aria-pressed="false" data-f="bear">Bearish</button><button aria-pressed="false" data-f="high">High impact</button></div>
+ <div id="nl"></div>
+</section>
+<section id="calendar" class="box pad rv"><h2>Economic calendar (USD)</h2><div id="cl"></div></section>
+<div class="warn">Not financial advice. Impact tags, bullish/bearish labels, bias and levels are computed automatically from headlines and price data and can be wrong. Prices come from Yahoo Finance and may be delayed; this page refreshes hourly. The ticker and chart above are live from TradingView. Always read the original story before you trade.</div>
 </div>
-
+<nav class="bot"><a href="#home" class="on">Home</a><a href="#chart">Chart</a><a href="#news">News</a><a href="#calendar">Calendar</a></nav>
+<noscript><p style="padding:20px">Please enable JavaScript to view this page.</p></noscript>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://s3.tradingview.com/tv.js"></script>
+<script type="application/json" id="data">__DATA__</script>
 <script>
-/* ---------- 3D gold hologram ---------- */
-(function(){
-  try{
-    var el=document.getElementById("holo");
-    if(!el||!window.THREE) return;
-    var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var W=el.clientWidth,H=el.clientHeight;
-    var renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
-    renderer.setSize(W,H);
-    el.insertBefore(renderer.domElement,el.firstChild);
-    var scene=new THREE.Scene();
-    var cam=new THREE.PerspectiveCamera(36,W/H,0.1,100);
-    cam.position.set(0,1.5,9.2);cam.lookAt(0,-0.1,0);
-    var group=new THREE.Group();scene.add(group);
-
-    var GOLD=0xd9b25a, LIGHT=0xf6e2a6;
-    function bar(x,y,z){
-      var g=new THREE.BoxGeometry(2.2,0.72,1.05);
-      var p=g.attributes.position;
-      for(var i=0;i<p.count;i++){
-        if(p.getY(i)>0){p.setX(i,p.getX(i)*0.84);p.setZ(i,p.getZ(i)*0.76);}
-      }
-      g.computeVertexNormals();
-      var fill=new THREE.Mesh(g,new THREE.MeshBasicMaterial({color:GOLD,transparent:true,opacity:0.17,blending:THREE.AdditiveBlending,depthWrite:false}));
-      var edge=new THREE.LineSegments(new THREE.EdgesGeometry(g),new THREE.LineBasicMaterial({color:LIGHT,transparent:true,opacity:0.95}));
-      var o=new THREE.Group();o.add(fill);o.add(edge);o.position.set(x,y,z);group.add(o);
-    }
-    bar(-1.2,-0.8,0);bar(1.2,-0.8,0);bar(0,-0.04,0);
-
-    function ring(r1,r2,op){
-      var m=new THREE.Mesh(new THREE.RingGeometry(r1,r2,96),new THREE.MeshBasicMaterial({color:GOLD,transparent:true,opacity:op,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,depthWrite:false}));
-      m.rotation.x=-Math.PI/2;return m;
-    }
-    var base=ring(2.9,2.95,0.9);base.position.y=-1.45;scene.add(base);
-    var base2=ring(3.5,3.53,0.35);base2.position.y=-1.45;scene.add(base2);
-    var beam=new THREE.Mesh(new THREE.CylinderGeometry(2.9,2.9,3.4,64,1,true),new THREE.MeshBasicMaterial({color:GOLD,transparent:true,opacity:0.05,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,depthWrite:false}));
-    beam.position.y=0.25;scene.add(beam);
-    var scan=ring(2.55,2.62,0.7);scene.add(scan);
-
-    var N=150,pos=new Float32Array(N*3),spd=new Float32Array(N);
-    for(var i=0;i<N;i++){
-      var a=Math.random()*6.283,r=Math.random()*2.7;
-      pos[i*3]=Math.cos(a)*r;pos[i*3+1]=-1.4+Math.random()*3.2;pos[i*3+2]=Math.sin(a)*r;
-      spd[i]=0.004+Math.random()*0.008;
-    }
-    var pg=new THREE.BufferGeometry();pg.setAttribute("position",new THREE.BufferAttribute(pos,3));
-    var pts=new THREE.Points(pg,new THREE.PointsMaterial({color:LIGHT,size:0.045,transparent:true,opacity:0.8,blending:THREE.AdditiveBlending,depthWrite:false}));
-    scene.add(pts);
-
-    var rotY=0.5,vel=0.0045,drag=false,lastX=0,t=0,visible=true;
-    el.addEventListener("pointerdown",function(e){drag=true;lastX=e.clientX;});
-    window.addEventListener("pointerup",function(){drag=false;});
-    window.addEventListener("pointermove",function(e){
-      if(!drag)return;rotY+=(e.clientX-lastX)*0.012;lastX=e.clientX;
-    });
-
-    function frame(){
-      t+=0.016;
-      if(!drag)rotY+=vel;
-      group.rotation.y=rotY;
-      group.position.y=Math.sin(t*1.1)*0.07;
-      scan.position.y=-1.4+((t*0.45)%1)*3.1;
-      scan.material.opacity=0.7*(1-((t*0.45)%1));
-      var p=pg.attributes.position;
-      for(var i=0;i<N;i++){
-        var y=p.getY(i)+spd[i];if(y>1.8)y=-1.4;p.setY(i,y);
-      }
-      p.needsUpdate=true;
-      renderer.render(scene,cam);
-    }
-    function loop(){if(visible)frame();requestAnimationFrame(loop);}
-    if(reduce){frame();}else{loop();}
-
-    if("IntersectionObserver" in window){
-      new IntersectionObserver(function(en){visible=en[0].isIntersecting;}).observe(el);
-    }
-    function resize(){
-      var w=el.clientWidth,h=el.clientHeight;if(!w||!h)return;
-      renderer.setSize(w,h);cam.aspect=w/h;cam.updateProjectionMatrix();if(reduce)frame();
-    }
-    window.addEventListener("resize",resize);
-  }catch(e){}
-})();
-
-/* ---------- TradingView chart ---------- */
-try{
-  new TradingView.widget({
-    autosize:true,
-    symbol:"OANDA:XAUUSD",
-    interval:"60",
-    timezone:"Etc/UTC",
-    theme:"dark",
-    style:"1",
-    locale:"en",
-    toolbar_bg:"#15100b",
-    backgroundColor:"#15100b",
-    enable_publishing:false,
-    allow_symbol_change:true,
-    hide_side_toolbar:false,
-    withdateranges:true,
-    save_image:true,
-    overrides:{"paneProperties.background":"#15100b","paneProperties.backgroundType":"solid"},
-    container_id:"tv_chart"
-  });
-}catch(e){}
-
-/* ---------- times ---------- */
-function fmt(s){return new Date(s).toLocaleString([],{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}
-document.getElementById("upd").textContent=fmt("2026-10-26T09:32:59.326732+00:00");
-document.querySelectorAll(".t").forEach(function(e){e.textContent=fmt(e.dataset.ts)});
-</script>
-</body>
-</html>
+var D=JSON.parse(document.getElementById("data").textContent),$=function(i){return document.getElementById(i)};
+var RM=matchMedia("(prefers-reduced-motion: reduce)").matches,usd=function(v){return v==null?"--":"$"+v.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})};
+var f0=function(v){return Math.round(v).toLocaleString("en-US")};
+function ago(s){var m=(Date.now()-new Date(s))/6e4;return m<60?Math.max(1,Math.round(m))+" min ago":m<1440?Math.round(m/60)+" h ago":Math.round(m/1440)+" d ago"}
+/* intro */
+function startAll(){reveal();countUp();typeIt()}
+(function(){var it=$("intro");if(RM||sessionStorage.getItem("seen")){it.remove();startAll();return}
+function go(){it.style.opacity=0;setTimeout(function(){it.remove();startAll()},800);sessionStorage.setItem("seen","1")}
+setTimeout(go,2600);it.onclick=go})();
+/* reveal on scroll */
+function reveal(){var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}})},{threshold:.08});document.querySelectorAll(".rv").forEach(function(e){io.observe(e)})}
+/* price */
+var P=D.price;
+if(P){$("plabel").textContent=P.label+", US dollars per ounce";$("hi").textContent=usd(P.high);$("lo").textContent=usd(P.low);$("pv").textContent=usd(P.prev);
+$("pchg").className="chg "+(P.pct>=0?"up":"dn");$("pchg").textContent=(P.pct>=0?"▲ ":"▼ ")+Math.abs(P.pct).toFixed(2)+"% today";
+$("src").textContent="Source: Yahoo Finance (may be delayed). Snapshot updated "+ago(D.updated)+"; refreshes hourly."}else{$("src").textContent="Price unavailable right now. The live ticker above still works."}
+function countUp(){if(!P||RM){if(P)$("pnum").textContent=usd(P.value);return}var t0=performance.now();(function s(t){var k=Math.min((t-t0)/1500,1),e=1-Math.pow(1-k,3);$("pnum").textContent=usd(P.value*e);if(k<1)requestAnimationFrame(s)})(t0)}
+function typeIt(){var s="Spot gold, news, levels and events in one place.",i=0,e=$("ty");if(RM){e.textContent=s;return}(function n(){e.textContent=s.slice(0,i++);if(i<=s.length)setTimeout(n,38)})()}
+function mk(){var d=new Date(),w=d.getUTCDay(),h=d.getUTCHours(),off=w==6||(w==5&&h>=22)||(w==0&&h<22);$("ms").innerHTML='<span class="dot'+(off?" off":"")+'"></span>'+(off?"Closed":"Open")}mk();
+/* analysis */
+(function(){var A=D.analysis,e=$("analysis");if(!A){e.innerHTML='<div class="msg">Analysis unavailable right now.</div>';return}
+var L=A.levels,ks=["R2","R1","Pivot","S1","S2"];
+e.innerHTML='<div><h2>Market analysis</h2><span class="pill '+A.bias+'">Overall bias: '+A.bias+'</span><ul class="why">'+A.why.map(function(x){return"<li>"+x+"</li>"}).join("")+"</ul></div><div><div class=\"lbl\" style=\"margin-bottom:8px\">Key levels (computed from recent prices)</div><div class=\"lv\">"+ks.map(function(k){return'<div class="'+(k[0]=="R"?"r":k[0]=="S"?"s":"")+'">'+k+"<b>$"+f0(L[k])+"</b></div>"}).join("")+'</div><p class="msg">RSI(14): '+(A.rsi?A.rsi.toFixed(0):"--")+" | 20-day avg: $"+(A.sma20?f0(A.sma20):"--")+" | 50-day avg: $"+(A.sma50?f0(A.sma50):"--")+"<br>"+A.inval+" This is an estimate, not a signal.</p></div>"})();
+/* chart */
+function load(s){var b=$("tv");b.innerHTML="";$("tvm").style.display="grid";$("tvm").textContent="Loading chart...";
+try{new TradingView.widget({autosize:true,symbol:s,interval:"60",timezone:"Etc/UTC",theme:"dark",style:"1",locale:"en",toolbar_bg:"#101012",backgroundColor:"#101012",allow_symbol_change:true,hide_side_toolbar:false,withdateranges:true,studies:["RSI@tv-basicstudies","MASimple@tv-basicstudies"],overrides:{"paneProperties.background":"#101012","paneProperties.backgroundType":"solid","mainSeriesProperties.candleStyle.upColor":"#3fd49a","mainSeriesProperties.candleStyle.downColor":"#ff5964","mainSeriesProperties.candleStyle.borderUpColor":"#3fd49a","mainSeriesProperties.candleStyle.borderDownColor":"#ff5964","mainSeriesProperties.candleStyle.wickUpColor":"#3fd49a","mainSeriesProperties.candleStyle.wickDownColor":"#ff5964"},container_id:"tv"})}catch(e){}
+setTimeout(function(){if(b.querySelector("iframe"))$("tvm").style.display="none";else $("tvm").innerHTML='Chart could not load. <a style="color:#f3dfa6" target="_blank" rel="noopener" href="https://www.tradingview.com/chart/?symbol=TVC%3AGOLD">Open it on TradingView</a>'},6000)}
+function pill(){var sw=$("sw"),b=sw.querySelector('[aria-pressed=true]'),i=sw.querySelector("i");i.style.left=b.offsetLeft+"px";i.style.width=b.offsetWidth+"px"}
+$("sw").querySelectorAll("button").forEach(function(b){b.onclick=function(){$("sw").querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",x===b)});pill();load(b.dataset.s)}});
+load("TVC:GOLD");pill();addEventListener("resize",pill);setTimeout(pill,600);
+/* ticker */
+(function(){var s=document.createElement("script");s.src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";s.async=true;
+s.text=JSON.stringify({symbols:[{proName:"TVC:GOLD",title:"Gold"},{proName:"TVC:DXY",title:"US Dollar Index"},{proName:"TVC:US10Y",title:"US 10Y yield"},{proName:"TVC:SILVER",title:"Silver"},{proName:"TVC:USOIL",title:"WTI oil"}],colorTheme:"dark",isTransparent:true,displayMode:"adaptive",locale:"en"});
+var c=document.createElement("div");c.className="tradingview-widget-container";c.appendChild(s);$("tape").appendChild(c)})();
+/* news */
+function news(f){var n=D.news.filter(function(x){return f=="all"||(f=="high"?x.tag=="HIGH":x.dir==f)});
+$("nl").innerHTML=n.length?n.map(function(x,i){var t=x.dir=="bull"?"Bullish for gold":x.dir=="bear"?"Bearish for gold":"Impact unclear";
+return'<a class="cd '+x.tag+'" href="'+x.link+'" target="_blank" rel="noopener"><span class="tag">'+x.tag+'</span><h3></h3><div class="mt"><span title="'+new Date(x.ts).toLocaleString()+'"></span><span class="'+x.dir+'">'+t+"</span></div></a>"}).join(""):'<div class="msg">'+(D.news.length?"No stories match this filter.":"No news could be loaded right now. Try again in an hour.")+"</div>";
+$("nl").querySelectorAll(".cd").forEach(function(c,i){c.querySelector("h3").textContent=n[i].title;c.querySelector(".mt span").textContent=n[i].source+" | "+ago(n[i].ts)})}
+$("fl").querySelectorAll("button").forEach(function(b){b.onclick=function(){$("fl").querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",x===b)});news(b.dataset.f)}});news("all");
+/* calendar + countdown */
+function cal(){var C=D.calendar,e=$("cl");if(!C.length){e.innerHTML='<div class="msg">Calendar unavailable right now. See the full one on <a style="color:#f3dfa6" target="_blank" rel="noopener" href="https://www.tradingview.com/economic-calendar/">TradingView</a>.</div>';return}
+var now=Date.now(),nx=C.find(function(x){return new Date(x.ts)>now});
+function cd(ts){var s=Math.max(0,(new Date(ts)-Date.now())/1000),d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60),c=Math.floor(s%60);return(d?d+"d ":"")+h+"h "+m+"m "+c+"s"}
+e.innerHTML=(nx?'<div class="nx">Next: <b></b><br><span class="c" id="cdn" style="color:#f3dfa6;font-weight:600"></span></div>':"")+C.map(function(x){var p=new Date(x.ts)<now;return'<div class="ev" style="opacity:'+(p?.55:1)+'"><div><b></b><br><small>'+new Date(x.ts).toLocaleString([],{weekday:"short",hour:"2-digit",minute:"2-digit"})+" | "+x.impact+' impact</small></div><div class="c"><small>Forecast '+x.forecast+"<br>Previous "+x.previous+"</small></div></div>"}).join("");
+var bs=e.querySelectorAll(".ev b");C.forEach(function(x,i){bs[i].textContent=x.title});
+if(nx){e.querySelector(".nx b").textContent=nx.title;(function t(){$("cdn").textContent="in "+cd(nx.ts);setTimeout(t,1000)})()}}cal();
+/* nav highlight */
+(function(){var ls=document.querySelectorAll("nav a"),io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting)ls.forEach(function(a){a.classList.toggle("on",a.getAttribute("href")=="#"+x.target.id)})})},{rootMargin:"-40% 0px -55% 0px"});["home","chart","news","calendar"].forEach(function(i){io.observe($(i))})})();
+/* 3D hologram */
+(function(){try{var el=$("holo");if(!el||!window.THREE)return;var W=el.clientWidth,H=el.clientHeight,r=new THREE.WebGLRenderer({antialias:true,alpha:true});r.setPixelRatio(Math.min(devicePixelRatio||1,2));r.setSize(W,H);el.appendChild(r.domElement);
+var sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(36,W/H,.1,100);cam.position.set(0,1.5,9.2);cam.lookAt(0,-.1,0);var g=new THREE.Group();sc.add(g);
+function bar(x,y){var b=new THREE.BoxGeometry(2.2,.72,1.05),p=b.attributes.position;for(var i=0;i<p.count;i++)if(p.getY(i)>0){p.setX(i,p.getX(i)*.84);p.setZ(i,p.getZ(i)*.76)}
+var o=new THREE.Group();o.add(new THREE.Mesh(b,new THREE.MeshBasicMaterial({color:0xe3b95c,transparent:true,opacity:.22,blending:THREE.AdditiveBlending,depthWrite:false})));o.add(new THREE.LineSegments(new THREE.EdgesGeometry(b),new THREE.LineBasicMaterial({color:0xfff0bf})));o.position.set(x,y,0);g.add(o)}
+bar(-1.2,-.8);bar(1.2,-.8);bar(0,-.04);
+function ring(a,b,op,y){var m=new THREE.Mesh(new THREE.RingGeometry(a,b,80),new THREE.MeshBasicMaterial({color:0xe3b95c,transparent:true,opacity:op,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,depthWrite:false}));m.rotation.x=-Math.PI/2;m.position.y=y;sc.add(m);return m}
+ring(2.9,2.95,.9,-1.45);ring(3.5,3.53,.35,-1.45);var scan=ring(2.55,2.62,.7,-1.4);
+var N=innerWidth<700?70:140,pos=new Float32Array(N*3),sp=[];for(var i=0;i<N;i++){var a=Math.random()*6.28,q=Math.random()*2.7;pos[i*3]=Math.cos(a)*q;pos[i*3+1]=-1.4+Math.random()*3.2;pos[i*3+2]=Math.sin(a)*q;sp.push(.004+Math.random()*.008)}
+var pg=new THREE.BufferGeometry();pg.setAttribute("position",new THREE.BufferAttribute(pos,3));sc.add(new THREE.Points(pg,new THREE.PointsMaterial({color:0xfff0bf,size:.045,transparent:true,opacity:.8,blending:THREE.AdditiveBlending,depthWrite:false})));
+var ry=.5,drag=false,lx=0,t=0,vis=true;el.onpointerdown=function(e){drag=true;lx=e.clientX};addEventListener("pointerup",function(){drag=false});addEventListener("pointermove",function(e){if(drag){ry+=(e.clientX-lx)*.012;lx=e.clientX}});
+function fr(){t+=.016;if(!drag)ry+=.0045;g.rotation.y=ry;g.position.y=Math.sin(t*1.1)*.07;var k=(t*.45)%1;scan.position.y=-1.4+k*3.1;scan.material.opacity=.7*(1-k);var p=pg.attributes.position;for(var i=0;i<N;i++){var y=p.getY(i)+sp[i];p.setY(i,y>1.8?-1.4:y)}p.needsUpdate=true;r.render(sc,cam)}
+(function lp(){if(vis)fr();if(!RM)requestAnimationFrame(lp)})();if(RM)fr();
+new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(el);
+addEventListener("resize",function(){var w=el.clientWidth,h=el.clientHeight;if(w&&h){r.setSize(w,h);cam.aspect=w/h;cam.updateProjectionMatrix()}})}catch(e){}})();
+</script></body></html>
