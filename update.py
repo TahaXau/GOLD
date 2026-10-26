@@ -69,10 +69,12 @@ def market():
             res = get("https://query1.finance.yahoo.com/v8/finance/chart/%s?interval=1d&range=3mo" % quote(sym)).json()["chart"]["result"][0]
             m, q = res["meta"], res["indicators"]["quote"][0]
             rows = [(h, l, c) for h, l, c in zip(q["high"], q["low"], q["close"]) if None not in (h, l, c)]
-            return label, m, rows
+            candles = [[o, h, l, c] for o, h, l, c in zip(q["open"], q["high"], q["low"], q["close"])
+                       if None not in (o, h, l, c)][-30:]
+            return label, m, rows, candles
         except Exception as e:
             print("market error:", sym, e)
-    return None, None, []
+    return None, None, [], []
 
 
 def sma(v, n):
@@ -132,8 +134,8 @@ def calendar():
 
 def main():
     news = build_news()
-    label, m, rows = market()
-    data = {"updated": datetime.now(timezone.utc).isoformat(), "news": news, "calendar": calendar(), "price": None}
+    label, m, rows, candles = market()
+    data = {"updated": datetime.now(timezone.utc).isoformat(), "news": news, "calendar": calendar(), "price": None, "candles": candles}
     if m and rows:
         price, prev = m["regularMarketPrice"], m["chartPreviousClose"]
         pct = (price - prev) / prev * 100
